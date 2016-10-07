@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ name | capitalize }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card *ngIf="pokemon">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon?.id}}.png" style="max-height:100pt;max-width:100pt;margin:10pt auto;padding:4pt 4pt;background-color:#F4F4F4;border-radius:50%;">
+  <ion-card-content>
+    <ion-card-title>
+      {{ name | capitalize }}
+      </ion-card-title>
+    <ion-list>
+      <button ion-item>
+        <ion-icon name="globe" item-left></ion-icon>
+        <ion-badge color="secondary" item-right>{{ pokemon?.base_experience }}</ion-badge>
+        Base Experience 
+      </button>
+
+      <button ion-item>
+        <ion-icon name="body" item-left></ion-icon>
+        <ion-badge color="primary" item-right>{{ pokemon?.height }}</ion-badge>
+        Height 
+      </button>
+
+      <button ion-item>
+        <ion-icon name="ice-cream" item-left></ion-icon>
+        <ion-badge color="secondary" item-right>{{ pokemon?.weight }}</ion-badge>
+        Weight
+      </button>
+      <ion-item-divider light>Stats</ion-item-divider>
+      <button ion-item *ngFor="let stat of pokemon?.stats" >
+        {{ stat.stat.name | capitalize }} <ion-badge color="secondary" item-right>+ {{ stat.base_stat }}</ion-badge> <ion-badge color="primary" item-right>- {{ stat.effort }}</ion-badge>
+      </button>
+      <ion-item-divider light>Abilities</ion-item-divider>
+      <button ion-item *ngFor="let ability of pokemon?.abilities">{{ ability.ability.name | capitalize }}
+      </button>
+      <ion-item-divider light>Moves</ion-item-divider>
+      <button ion-item *ngFor="let move of pokemon?.moves" >
+        {{ move.move.name | capitalize }}
+      </button>
+    </ion-list>
+  </ion-card-content>
+
+</ion-card>
+
+<ion-navbar *ngIf="pokemon">
+<ion-buttons left>
+    <button color="primary" icon-left="" ion-button="" class="button button-ios button-default button-default-ios button-ios-light" (click)="prev()"><span class="button-inner">
+      <ion-icon name="arrow-back" role="img" class="icon-ios ion-ios-arrow-back" aria-label="arrow back"></ion-icon>
+      Prev
+    </span><div class="button-effect"></div></button>
+</ion-buttons>
+<ion-buttons right>
+    <button color="primary" icon-left="" ion-button="" class="button button-ios button-default button-default-ios button-ios-light" (click)="next()"><span class="button-inner">
+    Next&nbsp;<ion-icon name="arrow-forward" role="img" class="icon-ios ion-ios-arrow-forward" aria-label="arrow forward"></ion-icon>
+    </span><div class="button-effect"></div></button>
+</ion-buttons>
+</ion-navbar>
+<div class="error">{{errorMessage}}</div>
+</ion-content>
